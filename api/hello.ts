@@ -1,6 +1,7 @@
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import { TwitterApi } from 'twitter-api-v2';
 
-export default async function handler(req, res) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   const client = new TwitterApi({
     appKey: '9TWL3K8e1c2hOQRdOznFyeL8K',
     appSecret: 'wRXWGKbFmeqwSyfoKn52vfHSYy1Qtls7LOBsgkBc959Pt4Xx9j',
@@ -8,8 +9,8 @@ export default async function handler(req, res) {
     accessSecret: 'DwXlQ4vVoFyc4zr8C6fq1wc5V7tb1WYO1AaGMILa17wN2',
   });
 
-  const usernames = ['CROvenSmash', 'CRKingdomEN', 'CookieRunTOA']; // Замените на нужные аккаунты
-  const tweets = [];
+  const usernames = ['username1', 'username2', 'username3'];
+  const tweets: { username: string; posts: { text: string; created_at: string }[] }[] = [];
 
   try {
     for (const username of usernames) {
@@ -17,7 +18,7 @@ export default async function handler(req, res) {
       const userTweets = await client.v2.userTimeline(user.data.id, { max_results: 5 });
       tweets.push({
         username,
-        posts: userTweets.data.data.map(tweet => ({
+        posts: userTweets.data.data.map((tweet: { text: string; created_at: string }) => ({
           text: tweet.text,
           created_at: tweet.created_at,
         })),

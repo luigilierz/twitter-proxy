@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/index.js": {
+    "api/hello.ts": {
       "memory": 128,
       "maxDuration": 10
     }
